@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𝓢𝓪𝓽𝓻𝓲𝓪 & 𝓛𝓾𝓼𝓲 Wedding</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body {margin:0; font-family:'Poppins', sans-serif; scroll-behavior:smooth; background-image: url("walpaper.jpg");}
+
+/* OPENING */
+.opening {height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:url("walpaper.jpg") center/cover no-repeat; color:white; text-align:center; background-color:rgba(0,0,0,0.5); background-blend-mode:darken;}
+.opening h1,h2,h3 {font-family:'Great Vibes', cursive; color:#bfa46f;}
+.opening button {padding:15px 25px; font-size:16px; border:none; border-radius:10px; cursor:pointer; background:#bfa46f; color:white; margin-top:20px;}
+
+/* MUSIC */
+.music {position:fixed; bottom:20px; right:20px; background:#bfa46f; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; cursor:pointer; color:white; font-size:20px; z-index:1000;}
+
+/* SECTION CARD */
+.section {padding:80px 20px; text-align:center; position:relative;}
+.card {background:rgb(255, 255, 255); padding:25px; margin:40px auto; border-radius:20px; max-width:420px; box-shadow:0 10px 25px rgba(0,0,0,0.1); opacity:0; transform:translateY(50px); transition:0.8s ease-out;}
+.card.visible {opacity:1; transform:translateY(0);}
+.card img {width:100%; border-radius:15px; margin-top:15px;}
+
+/* TREE DECORATION */
+.tree-left, .tree-right {position:fixed; top:0; bottom:0; width:80px; pointer-events:none; z-index:0;}
+.tree-left {left:0; background:url('https://images.unsplash.com/photo-1601965331835-3030c3b7e48e') center/cover no-repeat; background-size:contain;}
+.tree-right {right:0; background:url('https://images.unsplash.com/photo-1601965331835-3030c3b7e48e') center/cover no-repeat; background-size:contain; transform:scaleX(-1);}
+
+/* MENU MEMPELAI */
+.bride-groom-section {position:relative; padding:80px 20px; text-align:center; overflow:hidden;}
+.bride-groom {display:flex; justify-content:center; gap:80px; flex-wrap:wrap; z-index:2; position:relative;}
+.bride-groom .person {display:flex; flex-direction:column; align-items:center; text-align:center; color:#000;}
+.bride-groom .person img {width:160px; height:160px; object-fit:cover; border-radius:50%; border:4px solid #bfa46f; margin-bottom:15px; box-shadow:0 10px 20px rgba(0,0,0,0.3); transition: transform 0.5s ease;}
+.bride-groom .person img:hover {transform:scale(1.05);}
+.bride-groom .person h3 {font-family:'Great Vibes', cursive; font-size:28px; margin:5px 0;}
+.bride-groom .person p {font-size:14px; margin:2px 0;}
+
+/* SLIDER */
+.slider {position:relative; max-width:400px; margin:auto; overflow:hidden; opacity:0; transform:translateY(50px); transition:0.8s ease-out;}
+.slider.visible {opacity:1; transform:translateY(0);}
+.slide {display:none;}
+.slide img {width:100%; border-radius:15px; margin-bottom:10px;}
+
+/* GIFTS */
+.gift {background:#8d857a; padding:20px; border-radius:20px; margin:20px auto; max-width:420px; box-shadow:0 10px 25px rgba(0,0,0,0.1); opacity:0; transform:translateY(50px); transition:0.8s ease-out;}
+.gift.visible {opacity:1; transform:translateY(0);}
+.gift input {padding:10px; width:80%; border-radius:10px; border:none; margin-top:10px;}
+
+/* UCAPAN */
+.ucapan p {background:#ffe4b5; padding:10px; border-radius:10px; margin:5px auto; max-width:350px; opacity:0; transform:translateY(20px); transition:0.8s ease-out;}
+.ucapan p.visible {opacity:1; transform:translateY(0);}
+input, button {margin:5px 2px; padding:10px; border-radius:10px; border:none;}
+
+/* MAP */
+iframe {width:90%; height:250px; border-radius:15px; border:none; margin-top:20px;}
+
+/* COUNTDOWN */
+#countdown {font-size:24px; font-weight:bold; margin-top:20px; color: #bfa46f;}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="HariBahagia.mp3">
+</audio>
+<div class="music" onclick="toggleMusic()">🎵</div>
+
+<div class="tree-left"></div>
+<div class="tree-right"></div>
+
+<!-- OPENING -->
+<div class="opening" id="open">
+  <p>The Wedding Of</p>
+  <h1>𝓢𝓪𝓽𝓻𝓲𝓪 & 𝓛𝓾𝓼𝓲</h1>
+  <p>Kepada Yth.</p>
+  <h3 id="guest">Tamu Undangan</h3>
+  <button onclick="start()">Buka Undangan</button>
+</div>
+
+<div id="main" style="display:none">
+
+  <!-- MENU MEMPELAI -->
+  <div class="bride-groom-section card">
+    <h2>Mempelai</h2>
+    <div class="bride-groom">
+      <div class="person">
+        <img src="https://images.unsplash.com/photo-1524504388940-1f5c2c54e7c3" alt="Mempelai Wanita">
+        <h3>Satria</h3>
+        <p>𝓢𝓪𝓽𝓻𝓲𝓪 𝓝𝓾𝓰𝓻𝓸𝓱𝓸 𝓑𝓱𝓸𝓺𝓸𝓻𝓲</p>
+        <p>Lahir di Bekasi, 3 Agustus 2003</p>
+        <p>Anak dari Bapak Sarkudin & Ibu Ocky</p>
+      </div>
+      <div class="person">
+        <img src="https://images.unsplash.com/photo-1530023367847-0a6f0930d3f1" alt="Mempelai Pria">
+        <h3>Lusi</h3>
+        <p>𝓛𝓾𝓼𝓲𝓪𝓷𝓪</p>
+        <p>Lahir di Bekasi, 22 Juli 2002</p>
+        <p>Anak dari Bapak Edi & Ibu Ida</p>
+      </div>
+    </div>
+  </div>
+
+<!-- DOA -->
+  <div class="section card">
+    <h2>(QS. Ar-Rum: 21)</h2>
+    <p>Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.</p>
+  </div>
+
+</div>
+
+  <!-- AKAD -->
+  <div class="section card">
+    <h2>Akad Nikah</h2>
+    <p>MINGGU</p>
+    <P>12 September 2026</P>
+    <p>RT.003/RW.04, No.3, RT.002/RW.012, Pekayon Jaya, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17148</p>
+    <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57">
+  </div>
+
+  <!-- RESEPSI -->
+  <div class="section card">
+    <h2>Resepsi</h2>
+    <p>Time 10:00 wib</p>
+    <p>Kediaman mempelai wanita</p>
+    <p>RT.003/RW.04, No.3, RT.002/RW.012, Pekayon Jaya, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17148</p>
+    <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91">
+    <div id="countdown"></div>
+  </div>
+
+   <!-- lOVE STORY -->
+  <div class="section card">
+    <h2>lOVE STORY</h2>
+    <img src="walpaper.jpg">
+    <h2>FIRST MEET (2021)</h2>
+    <p>Tidak ada yang kebetulan didunia ini, kami sebelumnya tidak saling kenal, dan kami berkenalan saat pulang kerja</p>
+    <h2>Relationship (2021)</h2>
+    <p>05 November 2021 Kami menjalin hubungan sebagai sepasang kekasih</p>
+    <h2>Engagement (2026)</h2>
+    <p>Lika liku hubungan kami lalui bersama selama 5 tahun & memutusan bertunangan</p>
+    <h2>Married</h2>
+    <p></p>
+  </div>
+
+  <!-- GALERI -->
+  <div class="section card">
+    <h2>Galeri</h2>
+    <div class="slider" id="slider">
+      <div class="slide"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1519741497674-611481863552"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1530023367847-0a6f0930d3f1"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"></div>
+    </div>
+  </div>
+
+  <!-- GIFTS -->
+  <div class="section gift">
+    <h2>Wedding Gift</h2>
+    <p>Bisa transfer ke rekening/virtual gift:</p>
+    <input type="text" value="5681572296 Bank BCA" readonly>
+    <P>SATRIA NUGROHO BHOQORI</P>
+    <input type="text" value="581572326 Bank BCA" readonly>
+    <P>LUSIANA</P>
+  </div>
+
+  <!-- UCAPAN -->
+  <div class="section card">
+    <h2>Ucapan & Doa</h2>
+    <div class="ucapan" id="ucapan"></div>
+    <input id="namaUcapan" placeholder="Nama">
+    <input id="pesanUcapan" placeholder="Ucapan / Doa">
+    <button onclick="kirimUcapan()">Kirim</button>
+  </div>
+
+  <!-- MAP -->
+   <div class="section card">
+    <h2>Lokasi</h2>
+    <iframe src="https://maps.app.goo.gl/3A9RZvtZ47pSp4KZ7"></iframe>
+  </div>
+
+
+  <!-- TERIMAKASIH -->
+  <div class="section card">
+    <h2>Terimakasih</h2>
+    <p>Atas kehadiran dan doa restunya, kami ucapkan terima kasih ❤️</p>
+  </div>
+
+</div>
+
+<script>
+// START
+function start(){
+  document.getElementById('open').style.display='none';
+  document.getElementById('main').style.display='block';
+  document.getElementById('music').play();
+  revealOnScroll();
+  showSlides();
+  startCountdown();
+}
+
+// NAMA TAMU
+const params = new URLSearchParams(window.location.search);
+const guest = params.get('untuk');
+if(guest) document.getElementById('guest').innerText = guest;
+
+// MUSIC
+function toggleMusic(){
+  const m = document.getElementById('music');
+  m.paused ? m.play() : m.pause();
+}
+
+// SLIDER
+let slideIndex = 0;
+function showSlides(){
+  let slides = document.querySelectorAll("#slider .slide");
+  slides.forEach(s=>s.style.display="none");
+  slideIndex++;
+  if(slideIndex>slides.length) slideIndex=1;
+  slides[slideIndex-1].style.display="block";
+  setTimeout(showSlides,3000);
+}
+
+// UCAPAN
+function kirimUcapan(){
+  const nama = document.getElementById('namaUcapan').value;
+  const pesan = document.getElementById('pesanUcapan').value;
+  if(nama && pesan){
+    const p = document.createElement('p');
+    p.innerText = nama + ": " + pesan;
+    p.classList.add("visible");
+    document.getElementById('ucapan').appendChild(p);
+    document.getElementById('namaUcapan').value="";
+    document.getElementById('pesanUcapan').value="";
+  }
+}
+
+// SCROLL ANIMATION
+function revealOnScroll(){
+  const cards = document.querySelectorAll('.card, .slider, .gift');
+  const options = {threshold:0.1};
+  const observer = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, options);
+  cards.forEach(c=>observer.observe(c));
+}
+
+// COUNTDOWN
+function startCountdown(){
+  const countdownEl = document.getElementById('countdown');
+  const targetDate = new Date("2026-05-20T13:00:00").getTime(); // ganti tanggal resepsi
+  setInterval(()=>{
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    const days = Math.floor(distance / (1000*60*60*24));
+    const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+    const seconds = Math.floor((distance % (1000*60))/1000);
+    countdownEl.innerText = `Resepsi dalam ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  },1000);
+}
+</script>
+</body>
+</html>
